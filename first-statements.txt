@@ -1,0 +1,25 @@
+// See https://aka.ms/new-console-template for more information
+// aka Nullable<int>
+int? a = null;
+while (a == null)
+{
+    Console.WriteLine("Hello, bro! Gimme a number");
+    if (int.TryParse(Console.ReadLine(), out int parsedValue))
+    {
+        a = parsedValue;
+    }
+}
+
+
+if (a > 4)
+{
+    Console.WriteLine("yay!");
+}
+else if (a == 4)
+{
+    Console.WriteLine("perfect");
+}
+else
+{
+    Console.WriteLine("not enough!");
+}
