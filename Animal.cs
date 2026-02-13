@@ -13,15 +13,25 @@ abstract class Animal
 
     private int _foobar = 5;
 
-    public int GetFoobar()
+    protected Animal(string name)
+    {
+        this.name = name;
+        Console.WriteLine("I am an animal");
+    }
+
+    public int rawField = 5;
+
+    public int GetManualProperty()
     {
         return _foobar;
     }
 
-    public void SetFoobar(int new_foobar)
+    public void SetManualProperty(int new_foobar)
     {
         _foobar = new_foobar;
     }
+
+    public int ProperProperty { get; set;} = 5;
 
     private float growth_progress;
     protected int growth_rate;
@@ -32,12 +42,6 @@ abstract class Animal
     //     get;
     //     set;
     // }
-
-    public Animal(string name)
-    {
-        this.name = name;
-        Console.WriteLine("I am an animal");
-    }
 
     public int Breathe(int oxygen)
     {
@@ -64,18 +68,16 @@ class Cat : Animal
 {
     public Cat() : base("cat")
     {
+        // In Java super() must be the first call if used, in C# it's inline
         growth_rate = 2;
         Console.WriteLine($"I am a {name} and the above ^");
-        // not possible to call super in c#? I think it is in Java, and almost definitely Python
-        // base()
     }
 
-    // This could be implemented in Animal and set the base "language" for each animal in constructor
-    // Keep it like this for now as an example of abstract
+    // This would really be implemented in Animal and set the different "word" for each animal in constructor
+    // Keep it like this anyway as an example of abstract
     public override string Speak()
     {
-        // string noise = switch(size)
-        switch(size)
+        /*switch(size)
         {
             case 1:
                 return "meow";
@@ -83,7 +85,13 @@ class Cat : Animal
                 return "MEOW";
             default:
                 return "BIG MEOW";
-        }
+        }*/
+        return size switch
+        {
+            1 => "meow",
+            2 => "MEOW",
+            _ => "BIG MEOW"
+        };
     }
 
     public void FurBall()
@@ -102,23 +110,19 @@ class Dog : Animal
     public Dog() : base("dog")
     {
         growth_rate = 1;
-        Console.WriteLine("I am a cat and the above ^");
+        Console.WriteLine($"I am a {name} and the above ^");
         // not possible to call super in c#? I think it is in Java, and almost definitely Python
         // base()
     }
 
     public override string Speak()
     {
-        // string noise = switch(size)
-        switch(size)
+        return size switch
         {
-            case 1:
-                return "woof";
-            case 2:
-                return "WOOF";
-            default:
-                return "BIG WOOF";
-        }
+            1 => "woof",
+            2 => "WOOF",
+            _ => "BIG WOOF",
+        };
     }
 
     public void Fetch()
